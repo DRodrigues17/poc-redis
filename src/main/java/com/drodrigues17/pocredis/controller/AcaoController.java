@@ -1,6 +1,7 @@
-package com.daniel.pocredis;
+package com.drodrigues17.pocredis.controller;
 
-import com.daniel.pocredis.model.Acao;
+import com.drodrigues17.pocredis.model.Acao;
+import com.drodrigues17.pocredis.service.AcaoService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

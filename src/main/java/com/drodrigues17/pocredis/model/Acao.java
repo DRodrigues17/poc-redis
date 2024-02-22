@@ -1,4 +1,4 @@
-package com.daniel.pocredis.model;
+package com.drodrigues17.pocredis.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

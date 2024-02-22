@@ -1,13 +1,15 @@
-package com.daniel.pocredis;
+package com.drodrigues17.pocredis.service;
 
-import com.daniel.pocredis.model.Acao;
+import com.drodrigues17.pocredis.model.Acao;
+import com.drodrigues17.pocredis.repository.AcaoRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.io.Serializable;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AcaoService{
@@ -17,7 +19,7 @@ public class AcaoService{
     @Cacheable("acaoCache")
     public List<Acao> buscarCombinacoes() {
 
-        System.out.println("buscando informações no banco");
+        log.info("buscando informações no banco");
         return acaoRespository.findAll();
 
     }

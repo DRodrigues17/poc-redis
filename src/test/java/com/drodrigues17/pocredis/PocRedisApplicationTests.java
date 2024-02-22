@@ -1,4 +1,4 @@
-package com.daniel.pocredis;
+package com.drodrigues17.pocredis;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
