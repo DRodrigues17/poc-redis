@@ -1,17 +1,44 @@
 version: '3.3'
 
 services:
-  redis:
+  redis-master:
+    container_name: "redis-master"
     image: redis:6.0
-    restart: always
+    command: redis-server --requirepass senha-segura
     ports:
       - "6379:6379"
-    volumes: 
-      - cache:/data
+    restart: unless-stopped
+
+  redis-sentinel:
+    container_name: 'redis-sentinel'
+    image: redis:6.0
+    ports:
+      - "26379:26379"
+    command: redis-sentinel \
+      --sentinel announce-ip 127.0.0.1 \
+      --sentinel announce-port 26379 \
+      --sentinel monitor mymaster redis-master 6379 2 \
+      --sentinel down-after-milliseconds mymaster 60000 \
+      --sentinel failover-timeout mymaster 180000 \
+      --sentinel parallel-syncs mymaster 1 \
+      --sentinel password senha-segura
+    depends_on:
+      - redis-master
+    restart: unless-stopped
+
+  postgre-teste:
+    image: postgres:13.0
+    restart: unless-stopped
     environment:
-      - REDIS_PASSWORD=senha-segura
-      - REDIS_PORT=6379
-      - REDIS_DATABASES=16
+      POSTGRES_DB: postgre-teste
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - postgre-teste:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
 
 volumes:
   cache:
+  postgre-teste:
